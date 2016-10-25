@@ -1,5 +1,6 @@
 #!/bin/bash
 # Reading in command line arguments
+
 for i in "$@"
 do
 case $i in
@@ -28,15 +29,19 @@ case $i in
     ;;
 esac
 done
+
 echo "INPUT = ${INPUT}"
 echo "RATIO = ${RATIO}"
 echo "PART1 = ${PART1}"
 echo "PART2 = ${PART2}"
+
 # Split total lines using ratio. Add 1 because csplit argument is not inclusive
 LINES="$(echo "$(wc -l < ${INPUT}) * ${RATIO} + 1" | bc)"
 # Round to integer
 LINES=$( printf "%.0f" $LINES )
 echo "PART1 LINES = ${LINES}"
+
 csplit ${INPUT} ${LINES} -f part
+
 mv part00 ${PART1}
 mv part01 ${PART2}
